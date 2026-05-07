@@ -1,0 +1,103 @@
+# ==================== 数据集 ====================
+# 原始数据 (zip包 + ODGT标注)
+dataset_CrowdHuman/
+
+# YOLO格式数据集 (图片+标签, ~10GB, 由脚本生成)
+dataset_CrowdHuman_yolo/
+
+# ==================== 训练产物 ====================
+runs/
+wandb/
+mlruns/
+*.log
+args.yaml
+results.csv
+
+# ==================== 模型权重 ====================
+*.pt
+*.pth
+*.weights
+*.ts
+*.pb
+*.onnx
+*.engine
+*.mlmodel
+*.mlpackage
+*.torchscript
+*.tflite
+*.h5
+*.mnn
+*.rknn
+*_saved_model/
+*_web_model/
+*_openvino_model/
+*_paddle_model/
+*_ncnn_model/
+*_imx_model/
+pnnx*
+weights/
+calibration_*.npy
+
+# ==================== Python ====================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+*.egg
+dist/
+build/
+.eggs/
+MANIFEST
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ==================== 虚拟环境 ====================
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.python-version
+
+# ==================== IDE ====================
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# ==================== 系统文件 ====================
+.DS_Store
+Thumbs.db
+*.tmp
+
+# ==================== 测试/缓存 ====================
+.pytest_cache/
+.tox/
+.nox/
+.coverage
+.coverage.*
+htmlcov/
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.cache
+
+# ==================== 视频/图片 (非数据集) ====================
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.webm
+
+# ==================== 文档构建 ====================
+docs/_build/
+/site
+
+# ==================== 允许跟踪的文件 ====================
+!examples/**/requirements.txt
+!ultralytics/assets/
