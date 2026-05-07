@@ -3,15 +3,16 @@ CrowdHuman 数据集准备脚本
 功能：
   1. 解压图片到 images/train, images/val
   2. 将 ODGT 标注转换为 YOLO 格式 (labels/train, labels/val)
-  3. 生成 crowdhuman.yaml 数据集配置
+  3. 生成 crowdhuman.yaml 数据集配置.
 """
 
 import json
 import os
 import zipfile
-from pathlib import Path
-from PIL import Image
 from collections import defaultdict
+from pathlib import Path
+
+from PIL import Image
 
 # ======================== 配置 ========================
 DATASET_DIR = Path("dataset_CrowdHuman")
@@ -32,7 +33,7 @@ NUM_CLASSES = len(CLASS_NAMES)
 
 
 def extract_images(zip_paths, output_dir):
-    """从 zip 文件中解压图片"""
+    """从 zip 文件中解压图片."""
     output_dir.mkdir(parents=True, exist_ok=True)
     extracted = 0
     for zip_path in zip_paths:
@@ -56,9 +57,9 @@ def extract_images(zip_paths, output_dir):
 
 
 def parse_odgt(annotation_file):
-    """解析 ODGT 标注文件"""
+    """解析 ODGT 标注文件."""
     samples = []
-    with open(annotation_file, "r") as f:
+    with open(annotation_file) as f:
         for line in f:
             line = line.strip()
             if not line:
@@ -69,13 +70,13 @@ def parse_odgt(annotation_file):
 
 
 def get_image_size(image_path):
-    """获取图片尺寸"""
+    """获取图片尺寸."""
     with Image.open(image_path) as img:
         return img.width, img.height
 
 
 def convert_annotation(sample, img_dir, label_dir):
-    """将单个 ODGT 标注转换为 YOLO 格式"""
+    """将单个 ODGT 标注转换为 YOLO 格式."""
     image_id = sample["ID"]
     gtboxes = sample.get("gtboxes", [])
 
@@ -168,7 +169,7 @@ def convert_annotation(sample, img_dir, label_dir):
 
 
 def create_dataset_yaml(output_dir):
-    """生成 CrowdHuman 数据集 YAML 配置"""
+    """生成 CrowdHuman 数据集 YAML 配置."""
     yaml_content = f"""# CrowdHuman Dataset
 # 密集人群行人检测数据集
 # 使用 fbox (全身框) 作为检测目标
@@ -229,7 +230,7 @@ def main():
         if (i + 1) % 2000 == 0:
             print(f"    已处理 {i + 1}/{len(train_samples)}")
 
-    print(f"  训练集转换完成:")
+    print("  训练集转换完成:")
     print(f"    转换图片数: {train_stats['converted']}")
     print(f"    含行人图片: {train_stats['images_with_person']}")
     print(f"    总行人框数: {train_stats['total_persons']}")
@@ -252,7 +253,7 @@ def main():
         if (i + 1) % 1000 == 0:
             print(f"    已处理 {i + 1}/{len(val_samples)}")
 
-    print(f"  验证集转换完成:")
+    print("  验证集转换完成:")
     print(f"    转换图片数: {val_stats['converted']}")
     print(f"    含行人图片: {val_stats['images_with_person']}")
     print(f"    总行人框数: {val_stats['total_persons']}")
@@ -270,8 +271,10 @@ def main():
     print(f"  训练集: {train_count} 张图片, {train_stats['total_persons']} 个行人标注")
     print(f"  验证集: {val_count} 张图片, {val_stats['total_persons']} 个行人标注")
     print(f"  数据集配置: {yaml_path}")
-    print(f"\n训练命令:")
-    print(f"  conda run -n cu128 python train.py --data {yaml_path} --cfg ultralytics/cfg/models/11/yolo11s.yaml --weights yolo11s.pt --epochs 100 --batch 8 --img 640 --device 0")
+    print("\n训练命令:")
+    print(
+        f"  conda run -n cu128 python train.py --data {yaml_path} --cfg ultralytics/cfg/models/11/yolo11s.yaml --weights yolo11s.pt --epochs 100 --batch 8 --img 640 --device 0"
+    )
 
 
 if __name__ == "__main__":
