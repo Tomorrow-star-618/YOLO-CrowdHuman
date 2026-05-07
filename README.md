@@ -66,10 +66,10 @@ dataset_CrowdHuman_yolo/
 
 ## 数据集统计
 
-| 子集 | 图片数 | 行人标注框数 | 平均每图人数 |
-|------|--------|-------------|-------------|
-| 训练集 | 15,000 | 332,805 | 22.2 |
-| 验证集 | 4,370 | 97,604 | 22.3 |
+| 子集   | 图片数 | 行人标注框数 | 平均每图人数 |
+| ------ | ------ | ------------ | ------------ |
+| 训练集 | 15,000 | 332,805      | 22.2         |
+| 验证集 | 4,370  | 97,604       | 22.3         |
 
 - 超过 20 人的图片占比 36%
 - 超过 50 人的图片占比 7.6%
@@ -82,9 +82,9 @@ dataset_CrowdHuman_yolo/
 ```bash
 # YOLO11s 基线
 yolo detect train data=dataset_CrowdHuman_yolo/crowdhuman.yaml \
-    cfg=ultralytics/cfg/models/11/yolo11s.yaml \
-    weights=yolo11s.pt \
-    epochs=100 batch=8 imgsz=640 device=0
+  cfg=ultralytics/cfg/models/11/yolo11s.yaml \
+  weights=yolo11s.pt \
+  epochs=100 batch=8 imgsz=640 device=0
 ```
 
 ### 改进模型训练
@@ -92,9 +92,9 @@ yolo detect train data=dataset_CrowdHuman_yolo/crowdhuman.yaml \
 ```bash
 # 改进后的模型（待实现）
 yolo detect train data=dataset_CrowdHuman_yolo/crowdhuman.yaml \
-    cfg=ultralytics/cfg/models/11/yolo11s_crowd.yaml \
-    weights=yolo11s.pt \
-    epochs=100 batch=8 imgsz=640 device=0
+  cfg=ultralytics/cfg/models/11/yolo11s_crowd.yaml \
+  weights=yolo11s.pt \
+  epochs=100 batch=8 imgsz=640 device=0
 ```
 
 ## 项目结构
